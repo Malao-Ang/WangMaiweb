@@ -1,13 +1,11 @@
 <script lang="ts" setup>
-import LoginVue from './LoginVue.vue';
-
-
+import NavigationBarVue from "@/components/NavigationBarVue.vue";
 </script>
 <template>
- <div>
-  <LoginVue></LoginVue>
- </div>
+  <div>
 
+      <NavigationBarVue></NavigationBarVue>
+
+<h1>Helllo</h1>
+  </div>
 </template>
-
-
