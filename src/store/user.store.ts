@@ -1,12 +1,14 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { User } from "./types/User.type";
-import auth from "@/services/auth";
-import http from "@/services/axios";
+import router from "@/router";
+
 
 export const useUserStore = defineStore("user", () => {
   const user = ref<User>();
-
+  const email = ref(localStorage.getItem("email"));
+  const name =  ref(localStorage.getItem("name"));
+  const picture =  ref(localStorage.getItem("picture"));
   const login = async () => {
     try {
       // Redirect user to Google OAuth2 authorization URL
@@ -35,8 +37,16 @@ export const useUserStore = defineStore("user", () => {
 
       // remove the email, name, and picture parameters from the URL
       window.history.replaceState({}, document.title, window.location.pathname);
+      location.reload();
     }
   };
 
-  return { user, login, saveTolocatStorage };
+  const logOut = ()=>{
+    localStorage.removeItem("email");
+      localStorage.removeItem("name");
+      localStorage.removeItem("picture");
+      router.push('/login');
+  }
+
+  return { user, login, saveTolocatStorage ,logOut,email,name,picture};
 });

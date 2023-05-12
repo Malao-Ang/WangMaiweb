@@ -1,3 +1,8 @@
+<script lang="ts" setup>
+import { useUserStore } from "@/store/user.store";
+
+const userStore = useUserStore();
+</script>
 <template>
   <div>
     <nav>
@@ -30,8 +35,11 @@
               <li>
                 <a><router-link to="/about">About</router-link></a>
               </li>
-              <li>
+              <li v-if="userStore.name === null">
                 <a><router-link to="/login">Login</router-link></a>
+              </li>
+              <li v-if="userStore.name !== null" @click="userStore.logOut()">
+                <a>Logout</a>
               </li>
             </ul>
           </div>
@@ -79,7 +87,9 @@
             <div
               class="w-8 mr-3 ml-3 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
             >
-              <img src="https://scontent.fbkk2-5.fna.fbcdn.net/v/t39.30808-1/327006796_686653046481563_74172586481304136_n.jpg?stp=dst-jpg_p240x240&_nc_cat=110&ccb=1-7&_nc_sid=7206a8&_nc_eui2=AeGEAvjUZgjr4Ldk4_bDMapkG2uM1p0Y8UUba4zWnRjxRdd_nyCjhj_TqXpQpgmaW-RYNMlcF3dmK1ThbCdpxbYG&_nc_ohc=QGvM-bTnDWYAX-qh3yz&_nc_ht=scontent.fbkk2-5.fna&oh=00_AfBs_IAvZN4xt0AKBEyUmgc563tMr_5IiRuOw-vDU6pNnw&oe=64604566" />
+            
+           
+              <img :src="userStore.picture!" />
             </div>
           </div>
         </div>
