@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { useUserStore } from '@/store/user.store';
+
+const userStore = useUserStore();
 
 </script>
 <template>
@@ -26,7 +29,7 @@
           <button class="btn gap-2 btn-outline btn-wid mt-3">Submit</button>
         </div>
         <div class="divider">OR</div>
-        <button class="btn gap-2 btn-outline btn-primary btn-wid">
+        <button class="btn gap-2 btn-outline btn-primary btn-wid" @click="userStore.login">
           <img
             src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
             class="h-6 w-6"
