@@ -4,6 +4,7 @@ import GroupList from "@/components/GroupList.vue";
 import NavigationBarVue from "@/components/NavigationBarVue.vue";
 import { useUserStore } from "@/store/user.store";
 import { onMounted } from "vue";
+import CalenserPage from "./CalenserPage.vue";
 const useuserStore = useUserStore();
 onMounted(() => {
   useuserStore.saveTolocatStorage();
@@ -37,6 +38,7 @@ onMounted(() => {
         </div>
       </div>
     </div>
+
   </div>
 </template>
 <style scoped>
