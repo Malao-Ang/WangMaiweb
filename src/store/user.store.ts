@@ -9,6 +9,7 @@ export const useUserStore = defineStore("user", () => {
   const email = ref(localStorage.getItem("email"));
   const name =  ref(localStorage.getItem("name"));
   const picture =  ref(localStorage.getItem("picture"));
+  const token =  ref(localStorage.getItem("token"));
   const login = async () => {
     try {
       // Redirect user to Google OAuth2 authorization URL
@@ -29,11 +30,13 @@ export const useUserStore = defineStore("user", () => {
     const email = urlParams.get("email");
     const name = urlParams.get("name");
     const picture = urlParams.get("picture");
-    if (email && name && picture) {
+    const token = urlParams.get("token");
+    if (email && name && picture && token) {
       // save the email, name, and picture to the local storage
       localStorage.setItem("email", email);
       localStorage.setItem("name", name);
       localStorage.setItem("picture", picture);
+      localStorage.setItem("token", token);
 
       // remove the email, name, and picture parameters from the URL
       window.history.replaceState({}, document.title, window.location.pathname);
@@ -45,8 +48,9 @@ export const useUserStore = defineStore("user", () => {
     localStorage.removeItem("email");
       localStorage.removeItem("name");
       localStorage.removeItem("picture");
+      localStorage.removeItem("token");
       router.push('/login');
   }
 
-  return { user, login, saveTolocatStorage ,logOut,email,name,picture};
+  return { user, login, saveTolocatStorage ,logOut,email,name,picture,token};
 });
