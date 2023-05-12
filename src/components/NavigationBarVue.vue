@@ -33,6 +33,9 @@ const userStore = useUserStore();
                 <a> <router-link to="/">Home</router-link></a>
               </li>
               <li>
+                <a> <router-link to="/homepage">HomePage</router-link></a>
+              </li>
+              <li>
                 <a><router-link to="/about">About</router-link></a>
               </li>
               <li v-if="userStore.name === null">
