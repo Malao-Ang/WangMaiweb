@@ -5,9 +5,12 @@ import NavigationBarVue from "@/components/NavigationBarVue.vue";
 import { useUserStore } from "@/store/user.store";
 import { onMounted } from "vue";
 import CalenserPage from "./CalenserPage.vue";
+import { useCalenderStore } from "@/store/calender.store";
 const useuserStore = useUserStore();
+const useCalender = useCalenderStore();
 onMounted(() => {
   useuserStore.saveTolocatStorage();
+  useCalender.getCalender();
 });
 </script>
 <template>
@@ -20,25 +23,32 @@ onMounted(() => {
           <div class="chat chat-start">
             <div class="chat-image avatar">
               <div class="w-10 rounded-full">
-                <img src="https://scontent.fbkk2-5.fna.fbcdn.net/v/t39.30808-6/327006796_686653046481563_74172586481304136_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeGEAvjUZgjr4Ldk4_bDMapkG2uM1p0Y8UUba4zWnRjxRdd_nyCjhj_TqXpQpgmaW-RYNMlcF3dmK1ThbCdpxbYG&_nc_ohc=QGvM-bTnDWYAX8CyvKU&_nc_ht=scontent.fbkk2-5.fna&oh=00_AfA2p1M9XWEOhbtHiK4sI5Kam_kcI4MoO_iQ47MH2wHWag&oe=646331A0" />
+                <img
+                  src="https://scontent.fbkk2-5.fna.fbcdn.net/v/t39.30808-6/327006796_686653046481563_74172586481304136_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeGEAvjUZgjr4Ldk4_bDMapkG2uM1p0Y8UUba4zWnRjxRdd_nyCjhj_TqXpQpgmaW-RYNMlcF3dmK1ThbCdpxbYG&_nc_ohc=QGvM-bTnDWYAX8CyvKU&_nc_ht=scontent.fbkk2-5.fna&oh=00_AfA2p1M9XWEOhbtHiK4sI5Kam_kcI4MoO_iQ47MH2wHWag&oe=646331A0"
+                />
               </div>
             </div>
-            <div class="chat-bubble">
-              Hello {{ useuserStore.name }}
-            </div>
+            <div class="chat-bubble">Hello {{ useuserStore.name }}</div>
           </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-          <CardVue :date="'2023-05-14'" name="Add Calender" image="https://static.vecteezy.com/system/resources/previews/009/344/473/original/plus-sign-transparent-free-png.png"></CardVue>
-          <CardVue :date="'2023-05-14'" name="hello" image="https://scontent.fbkk2-8.fna.fbcdn.net/v/t39.30808-6/278021562_1702469103429536_2735779673560707089_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=174925&_nc_eui2=AeGSD2bagmOea_B5UHtpTQHHLwrXwoT8os0vCtfChPyizefwdRxXkXi8U0vD75Q-YPpu3pfqSf6oZME8ZpAm7XEx&_nc_ohc=ew7bdxxLpaAAX-hOf01&_nc_ht=scontent.fbkk2-8.fna&oh=00_AfDi6AoEhZY0oKbCMDNp8DkUQGN9rz8geja8epVMqNTC_A&oe=64612AD1"></CardVue>
-          <CardVue :date="'2023-05-14'" name="hello" image="https://scontent.fbkk2-8.fna.fbcdn.net/v/t39.30808-6/278021562_1702469103429536_2735779673560707089_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=174925&_nc_eui2=AeGSD2bagmOea_B5UHtpTQHHLwrXwoT8os0vCtfChPyizefwdRxXkXi8U0vD75Q-YPpu3pfqSf6oZME8ZpAm7XEx&_nc_ohc=ew7bdxxLpaAAX-hOf01&_nc_ht=scontent.fbkk2-8.fna&oh=00_AfDi6AoEhZY0oKbCMDNp8DkUQGN9rz8geja8epVMqNTC_A&oe=64612AD1"></CardVue>
-          <CardVue :date="'2023-05-14'" name="hello" image="https://scontent.fbkk2-8.fna.fbcdn.net/v/t39.30808-6/278021562_1702469103429536_2735779673560707089_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=174925&_nc_eui2=AeGSD2bagmOea_B5UHtpTQHHLwrXwoT8os0vCtfChPyizefwdRxXkXi8U0vD75Q-YPpu3pfqSf6oZME8ZpAm7XEx&_nc_ohc=ew7bdxxLpaAAX-hOf01&_nc_ht=scontent.fbkk2-8.fna&oh=00_AfDi6AoEhZY0oKbCMDNp8DkUQGN9rz8geja8epVMqNTC_A&oe=64612AD1"></CardVue>
-          <CardVue :date="'2023-05-14'" name="hello" image="https://scontent.fbkk2-8.fna.fbcdn.net/v/t39.30808-6/278021562_1702469103429536_2735779673560707089_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=174925&_nc_eui2=AeGSD2bagmOea_B5UHtpTQHHLwrXwoT8os0vCtfChPyizefwdRxXkXi8U0vD75Q-YPpu3pfqSf6oZME8ZpAm7XEx&_nc_ohc=ew7bdxxLpaAAX-hOf01&_nc_ht=scontent.fbkk2-8.fna&oh=00_AfDi6AoEhZY0oKbCMDNp8DkUQGN9rz8geja8epVMqNTC_A&oe=64612AD1"></CardVue>
-          <CardVue :date="'2023-05-14'" name="hello" image="https://scontent.fbkk2-8.fna.fbcdn.net/v/t39.30808-6/278021562_1702469103429536_2735779673560707089_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=174925&_nc_eui2=AeGSD2bagmOea_B5UHtpTQHHLwrXwoT8os0vCtfChPyizefwdRxXkXi8U0vD75Q-YPpu3pfqSf6oZME8ZpAm7XEx&_nc_ohc=ew7bdxxLpaAAX-hOf01&_nc_ht=scontent.fbkk2-8.fna&oh=00_AfDi6AoEhZY0oKbCMDNp8DkUQGN9rz8geja8epVMqNTC_A&oe=64612AD1"></CardVue>
+          <CardVue
+            :date="'2023-05-14'"
+            name="Add Calender"
+            image="https://static.vecteezy.com/system/resources/previews/009/344/473/original/plus-sign-transparent-free-png.png"
+          ></CardVue>
+          <!-- {{ useCalender.calenders }} -->
+          <div v-for="(item,index) of useCalender.calenders" :key="index">
+           
+            <CardVue
+            
+              :name="item.name"
+              image="https://img.freepik.com/free-vector/hand-drawn-collage-background_23-2149590537.jpg?w=1060&t=st=1684078274~exp=1684078874~hmac=e0c0488f66d61265afc91f05f4ca6f9b0170c9d23e0b65eadbe32c49f4abbd9d"
+            ></CardVue>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 <style scoped>

@@ -1,10 +1,10 @@
-import { Calendar } from "@fullcalendar/core";
 import http from "./axios";
+import _Calender from "@/store/types/Calender.type";
 
-const createCalender = (calender: Calendar) => {
+const createCalender = (calender: _Calender) => {
   return http.post(`/calenders`, calender);
 };
-const updateCalender = (id: number, calender: Calendar) => {
+const updateCalender = (id: number, calender: _Calender) => {
   return http.patch(`/calenders/${id}`, calender);
 };
 
@@ -12,15 +12,21 @@ const deleteCalender = (id: number) => {
   return http.delete(`/calenders/${id}`);
 };
 
-const joinCalender = (code: string, calender: Calendar) => {
+const joinCalender = (code: string, calender: _Calender) => {
   return http.patch(`/calenders/join/${code}`, calender);
 };
 
-const deleteMember = (id: number, calender: Calendar) => {
+const deleteMember = (id: number, calender: _Calender) => {
   return http.patch(`/calenders/delete-member/${id}`, calender);
 };
 
+const getCalender = (email: string) => {
+    return http.get(`/calenders/email/${email}`);
+
+}
+
 export default {
+    getCalender,
   createCalender,
   updateCalender,
   deleteCalender,
