@@ -15,9 +15,9 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <NavigationBarVue></NavigationBarVue>
+    <NavigationBarVue class="navb"></NavigationBarVue>
     <div class="home">
-      <GroupList></GroupList>
+      <GroupList class="gl"></GroupList>
       <div class="mx-auto list-card">
         <div class="ml-10 mt-3 mb-3">
           <div class="chat chat-start">
@@ -54,5 +54,13 @@ onMounted(() => {
 <style scoped>
 .list-card {
   margin-left: 50px;
+}
+.gl{
+  position: relative;
+  z-index: 9999;
+}
+.navb{
+  position: relative;
+  z-index: 99999;
 }
 </style>

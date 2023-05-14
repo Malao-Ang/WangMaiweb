@@ -25,6 +25,10 @@ const getCalender = (email: string) => {
 
 }
 
+const getJoinedCalender = (email: string) => {
+    return http.get(`/calenders/joined/${email}`);
+}
+
 export default {
     getCalender,
   createCalender,
@@ -32,4 +36,5 @@ export default {
   deleteCalender,
   joinCalender,
   deleteMember,
+  getJoinedCalender
 };

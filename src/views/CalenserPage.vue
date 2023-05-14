@@ -36,7 +36,10 @@ const calendarOptions = {
 
 </script>
 <template>
-  <div>
+  <div >
+
     <FullCalendar :options="calendarOptions" />
+
+
   </div>
 </template>

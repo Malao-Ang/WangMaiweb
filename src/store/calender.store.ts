@@ -23,6 +23,21 @@ export const useCalenderStore = defineStore("calender", () => {
      events:[]
     },
   ]);
+  const calendersJoined = ref<_Calender[]>([
+    {
+      id: 0,
+      name: "",
+      code: "",
+      owner: {
+        id: 0,
+        email: "",
+        name: "",
+        photo: "",
+      },
+      members:[],
+     events:[]
+    },
+  ]);
   const calender = ref<_Calender>({
     id: 0,
     name: "",
@@ -62,6 +77,17 @@ export const useCalenderStore = defineStore("calender", () => {
       console.error(err);
     }
   };
+  const getCalendersJoined = async ()=>{
+    try {
+        if (userStore.email) {
+          const res = await calenderService.getJoinedCalender(userStore.email + "");
+          console.log(JSON.stringify(res.data));
+          calendersJoined.value = res.data;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+  }
 
-  return { getCalender, calenders, events, calender,_event };
+  return { getCalender, calenders, events, calender,_event ,calendersJoined,getCalendersJoined};
 });
