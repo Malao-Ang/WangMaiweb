@@ -23,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/calender/:name/:idCalender",
+    path: "/calender/:id/:code",
     name: "calender",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

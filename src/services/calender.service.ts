@@ -8,6 +8,10 @@ const updateCalender = (id: number, calender: _Calender) => {
   return http.patch(`/calenders/${id}`, calender);
 };
 
+const getCalenderById = (id: number) => {
+  return http.get(`/calenders/${id}`);
+};
+
 const deleteCalender = (id: number) => {
   return http.delete(`/calenders/${id}`);
 };
@@ -21,20 +25,24 @@ const deleteMember = (id: number, calender: _Calender) => {
 };
 
 const getCalender = (email: string) => {
-    return http.get(`/calenders/email/${email}`);
-
-}
+  return http.get(`/calenders/email/${email}`);
+};
 
 const getJoinedCalender = (email: string) => {
-    return http.get(`/calenders/joined/${email}`);
-}
+  return http.get(`/calenders/joined/${email}`);
+};
+const findCalenderByCode = (code: string) => {
+  return http.get(`/calenders/code/${code}`);
+};
 
 export default {
-    getCalender,
+  findCalenderByCode,
+  getCalender,
   createCalender,
   updateCalender,
   deleteCalender,
   joinCalender,
   deleteMember,
-  getJoinedCalender
+  getJoinedCalender,
+  getCalenderById
 };

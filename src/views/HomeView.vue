@@ -6,12 +6,16 @@ import { useUserStore } from "@/store/user.store";
 import { onMounted } from "vue";
 import CalenserPage from "./CalenserPage.vue";
 import { useCalenderStore } from "@/store/calender.store";
+import _Calender from "@/store/types/Calender.type";
+import router from "@/router";
 const useuserStore = useUserStore();
 const useCalender = useCalenderStore();
 onMounted(() => {
   useuserStore.saveTolocatStorage();
   useCalender.getCalender();
 });
+
+
 </script>
 <template>
   <div>
@@ -41,8 +45,8 @@ onMounted(() => {
           <div v-for="(item,index) of useCalender.calenders" :key="index">
            
             <CardVue
-            
               :name="item.name"
+              @click="useCalender.goto(item)"
               image="https://img.freepik.com/free-vector/hand-drawn-collage-background_23-2149590537.jpg?w=1060&t=st=1684078274~exp=1684078874~hmac=e0c0488f66d61265afc91f05f4ca6f9b0170c9d23e0b65eadbe32c49f4abbd9d"
             ></CardVue>
           </div>
