@@ -1,5 +1,6 @@
 import { Calendar } from "@fullcalendar/core";
 import { User } from "./User.type";
+import _Calender from "./Calender.type";
 
 export interface  _Event{
     id?:number;
@@ -8,7 +9,7 @@ export interface  _Event{
     display:string;
     user?:User;
     color?:string;
-    calender?:Calendar;
+    calender?:_Calender;
     freeStatus?:boolean;
 
 }

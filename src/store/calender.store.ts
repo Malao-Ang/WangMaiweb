@@ -13,6 +13,7 @@ import { aW } from "@fullcalendar/core/internal-common";
 
 export const useCalenderStore = defineStore("calender", () => {
   const openMangeDialog = ref(false);
+  const dialog_event = ref(false);
   const calenders = ref<_Calender[]>([
     {
       id: 0,
@@ -58,18 +59,18 @@ export const useCalenderStore = defineStore("calender", () => {
     events: [],
   });
   const events = ref<_Event[]>([]);
-  const _event = ref<_Event>();
-  //   id:0,
-  //     title:"",
-  //     startDate:"",
-  //     endDate:"",
-  //     display:"",
-  //     user:{ id: 0,
-  //         email: "",
-  //         name: "",
-  //         photo: "",},
-  //     color:"",
-  //     freeStatus:false
+  const _event = ref<_Event>({
+    id: 0,
+    title: "",
+    start: new Date(),
+
+    display: "list-item",
+    user: { id: 0, email: "", name: "", photo: "" },
+    color: "",
+    freeStatus: false,
+    calender: { ...calender.value },
+  });
+
   const userStore = useUserStore();
   const mangeMemberDialog = ref(false);
 
@@ -221,8 +222,6 @@ export const useCalenderStore = defineStore("calender", () => {
     });
   };
 
-  
-
   const deleteCalender = async () => {
     try {
       await openDialog(
@@ -232,12 +231,8 @@ export const useCalenderStore = defineStore("calender", () => {
         `No`
       );
 
-     
-      const res = await calenderService.deleteCalender(
-        calender.value.id
-     
-      );
-      router.push('/');
+      const res = await calenderService.deleteCalender(calender.value.id);
+      router.push("/");
     } catch (e) {
       console.log(e);
     }
@@ -259,10 +254,39 @@ export const useCalenderStore = defineStore("calender", () => {
         calender.value.id,
         members
       );
-      router.push('/');
-
+      router.push("/");
     } catch (e) {
       console.log(e);
+    }
+  };
+  // event handlers
+  const createEvent = async (title: string, free_: boolean, date_: Date) => {
+    try {
+      const email = ref(localStorage.getItem("email"));
+
+      const eve = {
+        title: title,
+        start: new Date(date_),
+        display: "list-item",
+        color: "#74ebd5",
+        email: email.value + "",
+        freeStatus: free_,
+        idCalender: calender.value.id,
+      };
+      console.log(eve);
+      const res = await eventService.createEvent(eve);
+      console.log(res.data);
+
+      Swal.fire("Done!", "Everything done.", "success");
+      dialog_event.value = false;
+      await getOneCalenderById(calender.value.id+'');
+    } catch (e) {
+      console.log(e);
+      Swal.fire({
+        icon: "error",
+        title: "Oops... Not Found!",
+        text: "Have something wrong! ",
+      });
     }
   };
   return {
@@ -284,6 +308,8 @@ export const useCalenderStore = defineStore("calender", () => {
     openDialog,
     deleteMember,
     deleteCalender,
-    leaveTheGroup
+    leaveTheGroup,
+    createEvent,
+    dialog_event
   };
 });

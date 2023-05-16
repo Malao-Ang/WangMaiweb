@@ -6,6 +6,7 @@ import { useRoute } from "vue-router";
 import _Calender from "@/store/types/Calender.type";
 import { _Event } from "@/store/types/Event.type";
 import ManagememberModel from "@/components/models/ManagememberModel.vue";
+import CreateEventModal from "@/components/models/CreateEventModal.vue";
 const route = useRoute();
 const useCalender = useCalenderStore();
 const id = ref(route.params.id);
@@ -32,11 +33,11 @@ const attributes = computed(() => [
       label: _eve.title + ` (${_eve.user?.name})`,
       visibility: "click",
     },
-    highlight: {
-      color: "green",
-      fillMode: "light",
-    },
-    dot: _eve.color,
+    // highlight: {
+    //   color: "green",
+    //   fillMode: "light",
+    // },
+    dot: _eve.freeStatus? 'red':'green',
     dates: [new Date(_eve.start + "")],
   })),
 ]);
@@ -86,7 +87,7 @@ const attributes = computed(() => [
         </div>
       </div>
       <div class="add">
-        <label class="btn btn-circle btn-dialog">
+        <label class="btn btn-circle btn-dialog" for="my-modal-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"
@@ -105,6 +106,8 @@ const attributes = computed(() => [
       </div>
     </div>
   </body>
+  <CreateEventModal v-model="useCalender.dialog_event"></CreateEventModal>
+
   <ManagememberModel
     v-if="useCalender.openMangeDialog === true"
   ></ManagememberModel>
