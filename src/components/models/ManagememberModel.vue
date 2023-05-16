@@ -11,6 +11,12 @@ const useCalender = useCalenderStore();
       <input type="checkbox" id="my-modal-6" class="modal-toggle" />
       <div class="modal modal-bottom sm:modal-middle">
         <div class="modal-box modal-member">
+          <label
+          for="my-modal-6"
+          class="btn btn-sm btn-circle absolute right-2 top-2"
+          @click="useCalender.openMangeDialog = false"
+          >✕</label
+        >
           <h3 class="font-bold text-lg">All Member mai kaa</h3>
           <p class="py-4">คุณสามารถเพิ่มหรือลบสมาชิกได้ที่นี่เลย</p>
           <p class="font-bold py-4">members</p>
@@ -88,12 +94,12 @@ const useCalender = useCalenderStore();
             <a class="link link-error" v-if="email === useCalender.calender.owner.email" @click="useCalender.deleteCalender()">Delete Calendar</a>
             <a class="link link-error" v-else @click="useCalender.leaveTheGroup(email!)">Leave The Group</a>
 
-            <label
+            <!-- <label
               for="my-modal-6"
               class="btn"
               @click="useCalender.openMangeDialog = false"
               >OK</label
-            >
+            > -->
           </div>
         </div>
       </div>

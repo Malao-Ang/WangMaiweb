@@ -62,12 +62,23 @@ const attributes = computed(() => [
         </div>
         <div class="copy-btn">
           <div
-            class="tooltip tooltip-left tooltip-success"
+            class="tooltip tooltip-top tooltip-success"
             :data-tip="useCalender.calender.code"
           >
             <button class="btn btn-sm btn-success mr-5" @click="copyText">
               Coppy CODE
             </button>
+          </div>
+          <div>
+            <div class="tooltip tooltip-top" data-tip="setting">
+              <label
+                class="btn btn-circle btn glass"
+                for="my-modal-6"
+                @click="useCalender.openMangeDialog = true"
+              >
+                <img src="@/assets/images/settings.png" />
+              </label>
+            </div>
           </div>
         </div>
         <div class="the-car">
@@ -75,7 +86,7 @@ const attributes = computed(() => [
         </div>
       </div>
       <div class="add">
-        <label class="btn btn-circle btn-dialog" for="my-modal-6"  @click="useCalender.openMangeDialog = true">
+        <label class="btn btn-circle btn-dialog">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"
@@ -93,10 +104,10 @@ const attributes = computed(() => [
         </label>
       </div>
     </div>
-
   </body>
- <ManagememberModel v-if="useCalender.openMangeDialog === true"></ManagememberModel>
-
+  <ManagememberModel
+    v-if="useCalender.openMangeDialog === true"
+  ></ManagememberModel>
 </template>
 <style scoped>
 body {
@@ -115,6 +126,7 @@ body {
 .copy-btn {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   padding: 10px;
 }
 .add {
@@ -126,5 +138,4 @@ body {
   right: 20px;
   bottom: 20px;
 }
-
 </style>
