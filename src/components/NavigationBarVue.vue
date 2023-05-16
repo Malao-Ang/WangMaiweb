@@ -5,6 +5,9 @@ const userStore = useUserStore();
 </script>
 <template>
   <div>
+  
+    
+
     <nav>
       <div class="navbar bg-base-100">
         <div class="navbar-start">

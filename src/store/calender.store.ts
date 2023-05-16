@@ -26,6 +26,7 @@ export const useCalenderStore = defineStore("calender", () => {
       events: [],
     },
   ]);
+  const showErrText = ref(false);
   const calendersJoined = ref<_Calender[]>([
     {
       id: 0,
@@ -114,8 +115,10 @@ export const useCalenderStore = defineStore("calender", () => {
       console.log(err);
     }
   };
-  const goto = (item:_Calender)=>{
+  const goto = async (item:_Calender)=>{
     calender.value = item;
+    await getOneCalenderById(calender.value.id+'');
+
     router.push(`/calender/${calender.value.id}/${item.code}`)
   }
 
@@ -134,6 +137,21 @@ export const useCalenderStore = defineStore("calender", () => {
   
   }
 
+  const jointCalenderByCode = async (code:string,email:string)=>{
+    try{
+      const members = {
+        members:[email]
+      }
+      const res = await calenderService.joinCalender(code,members);
+      console.log(res.data);
+      location.reload();
+
+    }catch(e){
+      console.log(e);
+    }
+
+  }
+
   return {
     mangeMemberDialog,
     getEventsByCalenderId,
@@ -146,7 +164,9 @@ export const useCalenderStore = defineStore("calender", () => {
     getCalendersJoined,
     getOneCalenderById,
     goto,
-    createCarlender
+    createCarlender,
+    showErrText,
+    jointCalenderByCode
     
   };
 });

@@ -16,8 +16,8 @@ const deleteCalender = (id: number) => {
   return http.delete(`/calenders/${id}`);
 };
 
-const joinCalender = (code: string, calender: _Calender) => {
-  return http.patch(`/calenders/join/${code}`, calender);
+const joinCalender = (code: string, members: {members:string[]}) => {
+  return http.patch(`/calenders/join/${code}`, members);
 };
 
 const deleteMember = (id: number, calender: _Calender) => {
