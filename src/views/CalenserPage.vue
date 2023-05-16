@@ -1,8 +1,5 @@
 <script lang="ts" setup>
 import { ref, onMounted, computed } from "vue";
-// import FullCalendar from "@fullcalendar/vue3";
-// import dayGridPlugin from "@fullcalendar/daygrid";
-// import interactionPlugin from "@fullcalendar/interaction";
 import NavigationBarVue from "@/components/NavigationBarVue.vue";
 import { useCalenderStore } from "@/store/calender.store";
 import { useRoute } from "vue-router";
@@ -78,7 +75,7 @@ const attributes = computed(() => [
         </div>
       </div>
       <div class="add">
-        <label class="btn btn-circle btn-dialog" for="my-modal-6">
+        <label class="btn btn-circle btn-dialog" for="my-modal-6"  @click="useCalender.openMangeDialog = true">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"
@@ -96,8 +93,10 @@ const attributes = computed(() => [
         </label>
       </div>
     </div>
+
   </body>
- <ManagememberModel></ManagememberModel>
+ <ManagememberModel v-if="useCalender.openMangeDialog === true"></ManagememberModel>
+
 </template>
 <style scoped>
 body {

@@ -8,9 +8,10 @@ import { useUserStore } from "./user.store";
 import calenderService from "@/services/calender.service";
 import _Calender from "./types/Calender.type";
 import eventService from "@/services/event.service";
+import Swal from "sweetalert2";
 
 export const useCalenderStore = defineStore("calender", () => {
-
+  const openMangeDialog = ref(false);
   const calenders = ref<_Calender[]>([
     {
       id: 0,
@@ -118,7 +119,6 @@ export const useCalenderStore = defineStore("calender", () => {
   const goto = async (item:_Calender)=>{
     calender.value = item;
     await getOneCalenderById(calender.value.id+'');
-
     router.push(`/calender/${calender.value.id}/${item.code}`)
   }
 
@@ -129,8 +129,12 @@ export const useCalenderStore = defineStore("calender", () => {
         email:email
       }
       const res = await calenderService.createCalender(calender);
-      console.log(res.data);
-      location.reload();
+      Swal.fire(
+        'Done!',
+        'Everything done.',
+        'success'
+      )
+      await getCalender();
     }catch(e){
       console.log(`Cannot createCarlender`);
     }
@@ -144,13 +148,41 @@ export const useCalenderStore = defineStore("calender", () => {
       }
       const res = await calenderService.joinCalender(code,members);
       console.log(res.data);
-      location.reload();
+      Swal.fire(
+        'Done!',
+        'Everything done.',
+        'success'
+      )
+      await getCalendersJoined();
+      
 
     }catch(e){
       console.log(e);
     }
 
   }
+  const openDialog = (title: string, desc: string, okBtn: string, cancel: string) => {
+    return Swal.fire({
+      title: title,
+      text: desc,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: okBtn,
+      cancelButtonText: cancel,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+        'Done!',
+        'Everything done.',
+        'success'
+      )
+        return Promise.resolve();
+      } else if (result.isDismissed) {
+        return ;
+      }
+    });
+  };
 
   return {
     mangeMemberDialog,
@@ -166,7 +198,9 @@ export const useCalenderStore = defineStore("calender", () => {
     goto,
     createCarlender,
     showErrText,
-    jointCalenderByCode
+    jointCalenderByCode,
+    openMangeDialog,
+    openDialog
     
   };
 });
