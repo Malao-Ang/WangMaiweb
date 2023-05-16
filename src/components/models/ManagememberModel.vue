@@ -60,7 +60,8 @@ const useCalender = useCalenderStore();
               </div>
 
               <div v-if="email === useCalender.calender.owner.email">
-                <label  @click="useCalender.deleteLeavTheGroup(item.user?.email!);"
+                <label
+                  @click="useCalender.deleteMember(item.user?.email!)"
                   class="btn btn-circle btn-outline btn-sm btn-error"
                   for="modal-confirm-dialog"
                 >
@@ -83,7 +84,10 @@ const useCalender = useCalenderStore();
             </div>
           </div>
 
-          <div class="modal-action">
+          <div class="modal-action justify-between">
+            <a class="link link-error" v-if="email === useCalender.calender.owner.email" @click="useCalender.deleteCalender()">Delete Calendar</a>
+            <a class="link link-error" v-else @click="useCalender.leaveTheGroup(email!)">Leave The Group</a>
+
             <label
               for="my-modal-6"
               class="btn"

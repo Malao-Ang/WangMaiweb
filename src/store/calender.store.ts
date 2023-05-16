@@ -82,10 +82,10 @@ export const useCalenderStore = defineStore("calender", () => {
       }
     } catch (err) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Have something omething wrong!',
-      })
+        icon: "error",
+        title: "Oops...",
+        text: "Have something omething wrong!",
+      });
     }
   };
   const getCalendersJoined = async () => {
@@ -99,10 +99,10 @@ export const useCalenderStore = defineStore("calender", () => {
       }
     } catch (err) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Have something wrong! ',
-      })
+        icon: "error",
+        title: "Oops...",
+        text: "Have something wrong! ",
+      });
     }
   };
 
@@ -113,10 +113,10 @@ export const useCalenderStore = defineStore("calender", () => {
       console.log(events.value);
     } catch (err) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Have something wrong! ',
-      })
+        icon: "error",
+        title: "Oops...",
+        text: "Have something wrong! ",
+      });
     }
   };
 
@@ -127,105 +127,93 @@ export const useCalenderStore = defineStore("calender", () => {
       localStorage.setItem("calender", JSON.stringify(calender.value.events));
     } catch (err) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Have something wrong! ',
-      })
+        icon: "error",
+        title: "Oops...",
+        text: "Have something wrong! ",
+      });
     }
   };
-  const goto = async (item:_Calender)=>{
+  const goto = async (item: _Calender) => {
     calender.value = item;
-    await getOneCalenderById(calender.value.id+'');
-    router.push(`/calender/${calender.value.id}/${item.code}`)
-  }
+    await getOneCalenderById(calender.value.id + "");
+    router.push(`/calender/${calender.value.id}/${item.code}`);
+  };
 
-  const createCarlender = async (name:string,email:string)=>{
-    try{
+  const createCarlender = async (name: string, email: string) => {
+    try {
       const calender = {
-        name:name,
-        email:email
-      }
+        name: name,
+        email: email,
+      };
       const res = await calenderService.createCalender(calender);
-      Swal.fire(
-        'Done!',
-        'Everything done.',
-        'success'
-      )
+      Swal.fire("Done!", "Everything done.", "success");
       await getCalender();
-    }catch(e){
+    } catch (e) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Have something wrong! ',
-      })
+        icon: "error",
+        title: "Oops...",
+        text: "Have something wrong! ",
+      });
     }
-  
-  }
+  };
 
-  const jointCalenderByCode = async (code:string,email:string)=>{
-    try{
+  const jointCalenderByCode = async (code: string, email: string) => {
+    try {
       const members = {
-        members:[email]
-      }
-      const res = await calenderService.joinCalender(code,members);
+        members: [email],
+      };
+      const res = await calenderService.joinCalender(code, members);
       console.log(res.data);
-      
-        
-      
-      Swal.fire(
-        'Done!',
-        'Everything done.',
-        'success'
-      )
+
+      Swal.fire("Done!", "Everything done.", "success");
       await getCalendersJoined();
-      
-
-    }catch(e){
+    } catch (e) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops... Not Found!',
-        text: 'Have something wrong! ',
-      })
+        icon: "error",
+        title: "Oops... Not Found!",
+        text: "Have something wrong! ",
+      });
     }
+  };
+  const deleteMember = async (email: string) => {
+    try {
+      await openDialog(
+        `Are you sure`,
+        `Are you sure you want to delete user ${email}`,
+        `Yes`,
+        `No`
+      );
 
-  }
-  const deleteLeavTheGroup = async (email:string)=>{
-    try{
-      await openDialog(`Are you sure`,`Are you sure you want to delete user ${email}`,`Yes`,`No`);
-      
       const members = {
-        id:calender.value.id+'',
-        members:[email]
-      }
-      const res = await calenderService.deleteMember(calender.value.id,members);
-      await getOneCalenderById(calender.value.id+'');
-
-
-    }catch(e){
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Have something wrong! ',
-      })
+        id: calender.value.id + "",
+        members: [email],
+      };
+      const res = await calenderService.deleteMember(
+        calender.value.id,
+        members
+      );
+      await getOneCalenderById(calender.value.id + "");
+    } catch (e) {
+      console.log(e);
     }
-  }
-  const openDialog = (title: string, desc: string, okBtn: string, cancel: string) => {
+  };
+  const openDialog = (
+    title: string,
+    desc: string,
+    okBtn: string,
+    cancel: string
+  ) => {
     return Swal.fire({
       title: title,
       text: desc,
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
       confirmButtonText: okBtn,
       cancelButtonText: cancel,
     }).then((result) => {
       if (result.isConfirmed) {
-       
-        Swal.fire(
-        'Done!',
-        'Everything done.',
-        'success'
-      )
+        Swal.fire("Done!", "Everything done.", "success");
         return Promise.resolve();
       } else if (result.isDismissed) {
         return Promise.reject();
@@ -233,6 +221,50 @@ export const useCalenderStore = defineStore("calender", () => {
     });
   };
 
+  
+
+  const deleteCalender = async () => {
+    try {
+      await openDialog(
+        `Are you sure`,
+        `Are you sure you want to delete calendar ${calender.value.name}`,
+        `Yes`,
+        `No`
+      );
+
+     
+      const res = await calenderService.deleteCalender(
+        calender.value.id
+     
+      );
+      router.push('/');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const leaveTheGroup = async (email: string) => {
+    try {
+      await openDialog(
+        `Are you sure`,
+        `Are you sure you want to delete user ${email}`,
+        `Yes`,
+        `No`
+      );
+
+      const members = {
+        id: calender.value.id + "",
+        members: [email],
+      };
+      const res = await calenderService.deleteMember(
+        calender.value.id,
+        members
+      );
+      router.push('/');
+
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return {
     mangeMemberDialog,
     getEventsByCalenderId,
@@ -250,7 +282,8 @@ export const useCalenderStore = defineStore("calender", () => {
     jointCalenderByCode,
     openMangeDialog,
     openDialog,
-    deleteLeavTheGroup
-    
+    deleteMember,
+    deleteCalender,
+    leaveTheGroup
   };
 });
