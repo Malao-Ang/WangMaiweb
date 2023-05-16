@@ -9,6 +9,7 @@ import calenderService from "@/services/calender.service";
 import _Calender from "./types/Calender.type";
 import eventService from "@/services/event.service";
 import Swal from "sweetalert2";
+import { aW } from "@fullcalendar/core/internal-common";
 
 export const useCalenderStore = defineStore("calender", () => {
   const openMangeDialog = ref(false);
@@ -161,6 +162,22 @@ export const useCalenderStore = defineStore("calender", () => {
     }
 
   }
+  const deleteLeavTheGroup = async (email:string)=>{
+    try{
+      await openDialog(`Are you sure`,`Are you sure you want to delete user ${email}`,`Yes`,`No`);
+      
+      const members = {
+        id:calender.value.id+'',
+        members:[email]
+      }
+      const res = await calenderService.deleteMember(calender.value.id,members);
+      await getOneCalenderById(calender.value.id+'');
+
+
+    }catch(e){
+      console.log(e);
+    }
+  }
   const openDialog = (title: string, desc: string, okBtn: string, cancel: string) => {
     return Swal.fire({
       title: title,
@@ -172,6 +189,7 @@ export const useCalenderStore = defineStore("calender", () => {
       cancelButtonText: cancel,
     }).then((result) => {
       if (result.isConfirmed) {
+       
         Swal.fire(
         'Done!',
         'Everything done.',
@@ -179,7 +197,7 @@ export const useCalenderStore = defineStore("calender", () => {
       )
         return Promise.resolve();
       } else if (result.isDismissed) {
-        return ;
+        return Promise.reject();
       }
     });
   };
@@ -200,7 +218,8 @@ export const useCalenderStore = defineStore("calender", () => {
     showErrText,
     jointCalenderByCode,
     openMangeDialog,
-    openDialog
+    openDialog,
+    deleteLeavTheGroup
     
   };
 });

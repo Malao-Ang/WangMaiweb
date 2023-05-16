@@ -60,7 +60,7 @@ const useCalender = useCalenderStore();
               </div>
 
               <div v-if="email === useCalender.calender.owner.email">
-                <label  @click="useCalender.openDialog(`Are you sure?`,`คุณต้องการลบใช่หรือไม่`,`Yes`,`No`)"
+                <label  @click="useCalender.deleteLeavTheGroup(item.user?.email!);"
                   class="btn btn-circle btn-outline btn-sm btn-error"
                   for="modal-confirm-dialog"
                 >

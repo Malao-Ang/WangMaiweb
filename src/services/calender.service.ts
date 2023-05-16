@@ -20,8 +20,8 @@ const joinCalender = (code: string, members: {members:string[]}) => {
   return http.patch(`/calenders/join/${code}`, members);
 };
 
-const deleteMember = (id: number, calender: _Calender) => {
-  return http.patch(`/calenders/delete-member/${id}`, calender);
+const deleteMember = (id: number, members: {id:string,members:string[]}) => {
+  return http.patch(`/calenders/delete-member/${id}`, members);
 };
 
 const getCalender = (email: string) => {
