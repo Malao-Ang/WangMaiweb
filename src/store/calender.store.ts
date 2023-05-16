@@ -81,7 +81,11 @@ export const useCalenderStore = defineStore("calender", () => {
         calenders.value = res.data;
       }
     } catch (err) {
-      console.error(err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Have something omething wrong!',
+      })
     }
   };
   const getCalendersJoined = async () => {
@@ -94,7 +98,11 @@ export const useCalenderStore = defineStore("calender", () => {
         calendersJoined.value = res.data;
       }
     } catch (err) {
-      console.error(err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Have something wrong! ',
+      })
     }
   };
 
@@ -104,7 +112,11 @@ export const useCalenderStore = defineStore("calender", () => {
       events.value = res.data;
       console.log(events.value);
     } catch (err) {
-      console.error(err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Have something wrong! ',
+      })
     }
   };
 
@@ -114,7 +126,11 @@ export const useCalenderStore = defineStore("calender", () => {
       calender.value = res.data;
       localStorage.setItem("calender", JSON.stringify(calender.value.events));
     } catch (err) {
-      console.log(err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Have something wrong! ',
+      })
     }
   };
   const goto = async (item:_Calender)=>{
@@ -137,7 +153,11 @@ export const useCalenderStore = defineStore("calender", () => {
       )
       await getCalender();
     }catch(e){
-      console.log(`Cannot createCarlender`);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Have something wrong! ',
+      })
     }
   
   }
@@ -149,6 +169,9 @@ export const useCalenderStore = defineStore("calender", () => {
       }
       const res = await calenderService.joinCalender(code,members);
       console.log(res.data);
+      
+        
+      
       Swal.fire(
         'Done!',
         'Everything done.',
@@ -158,7 +181,11 @@ export const useCalenderStore = defineStore("calender", () => {
       
 
     }catch(e){
-      console.log(e);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops... Not Found!',
+        text: 'Have something wrong! ',
+      })
     }
 
   }
@@ -175,7 +202,11 @@ export const useCalenderStore = defineStore("calender", () => {
 
 
     }catch(e){
-      console.log(e);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Have something wrong! ',
+      })
     }
   }
   const openDialog = (title: string, desc: string, okBtn: string, cancel: string) => {
