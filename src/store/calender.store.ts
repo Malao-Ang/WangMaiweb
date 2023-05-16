@@ -68,6 +68,7 @@ export const useCalenderStore = defineStore("calender", () => {
   //     color:"",
   //     freeStatus:false
   const userStore = useUserStore();
+  const mangeMemberDialog = ref(false);
 
   const getCalender = async () => {
     try {
@@ -118,7 +119,23 @@ export const useCalenderStore = defineStore("calender", () => {
     router.push(`/calender/${calender.value.id}/${item.code}`)
   }
 
+  const createCarlender = async (name:string,email:string)=>{
+    try{
+      const calender = {
+        name:name,
+        email:email
+      }
+      const res = await calenderService.createCalender(calender);
+      console.log(res.data);
+      location.reload();
+    }catch(e){
+      console.log(`Cannot createCarlender`);
+    }
+  
+  }
+
   return {
+    mangeMemberDialog,
     getEventsByCalenderId,
     getCalender,
     calenders,
@@ -129,6 +146,7 @@ export const useCalenderStore = defineStore("calender", () => {
     getCalendersJoined,
     getOneCalenderById,
     goto,
+    createCarlender
     
   };
 });

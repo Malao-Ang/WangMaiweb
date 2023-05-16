@@ -1,7 +1,7 @@
 import http from "./axios";
 import _Calender from "@/store/types/Calender.type";
 
-const createCalender = (calender: _Calender) => {
+const createCalender = (calender: {name:string,email:string}) => {
   return http.post(`/calenders`, calender);
 };
 const updateCalender = (id: number, calender: _Calender) => {

@@ -3,13 +3,12 @@ import { ref } from "vue";
 import { User } from "./types/User.type";
 import router from "@/router";
 
-
 export const useUserStore = defineStore("user", () => {
   const user = ref<User>();
   const email = ref(localStorage.getItem("email"));
-  const name =  ref(localStorage.getItem("name"));
-  const picture =  ref(localStorage.getItem("picture"));
-  const token =  ref(localStorage.getItem("token"));
+  const name = ref(localStorage.getItem("name"));
+  const picture = ref(localStorage.getItem("picture"));
+  const token = ref(localStorage.getItem("token"));
   const login = async () => {
     try {
       // Redirect user to Google OAuth2 authorization URL
@@ -37,20 +36,33 @@ export const useUserStore = defineStore("user", () => {
       localStorage.setItem("name", name);
       localStorage.setItem("picture", picture);
       localStorage.setItem("token", token);
-
+      user.value = {
+        email: email,
+        name: name,
+        photo: picture,
+      };
       // remove the email, name, and picture parameters from the URL
       window.history.replaceState({}, document.title, window.location.pathname);
       location.reload();
     }
   };
 
-  const logOut = ()=>{
+  const logOut = () => {
     localStorage.removeItem("email");
-      localStorage.removeItem("name");
-      localStorage.removeItem("picture");
-      localStorage.removeItem("token");
-      router.push('/login');
-  }
+    localStorage.removeItem("name");
+    localStorage.removeItem("picture");
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
 
-  return { user, login, saveTolocatStorage ,logOut,email,name,picture,token};
+  return {
+    user,
+    login,
+    saveTolocatStorage,
+    logOut,
+    email,
+    name,
+    picture,
+    token,
+  };
 });
