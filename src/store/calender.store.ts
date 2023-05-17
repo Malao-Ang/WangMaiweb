@@ -325,8 +325,10 @@ export const useCalenderStore = defineStore("calender", () => {
       Swal.fire({
         icon: "error",
         title: "Oops... Not Found!",
-        text: "Have something wrong! ",
+        text: "You are create already ",
       });
+      dialog_event.value = false;
+
     }
   };
   return {

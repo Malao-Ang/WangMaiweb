@@ -37,7 +37,7 @@ const attributes = computed(() => [
     //   color: "green",
     //   fillMode: "light",
     // },
-    dot: _eve.freeStatus? 'red':'green',
+    dot: _eve.freeStatus? 'green':'red',
     dates: [new Date(_eve.start + "")],
   })),
 ]);
