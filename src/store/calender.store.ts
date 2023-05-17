@@ -259,9 +259,47 @@ export const useCalenderStore = defineStore("calender", () => {
       console.log(e);
     }
   };
+  function isFutureDate(day: number, month: number, year: number): boolean {
+    const currentDate: Date = new Date();
+    const currentYear: number = currentDate.getFullYear();
+    const currentMonth: number = currentDate.getMonth() + 1; // Months are zero-indexed in JavaScript Date object
+    const currentDay: number = currentDate.getDate();
+  
+    if (year < currentYear) {
+    console.log("not year " + currentYear)
+      return false;
+    } else if (year === currentYear) {
+      if (month < currentMonth) {
+    console.log("not month " + month)
+
+        return false;
+      } else if (month === currentMonth) {
+        console.log("currnt mounth " + month)
+        if (day <= currentDay) {
+        console.log("currnt day " + day)
+
+          return false;
+        }
+      }
+    }
+   
+  
+    return true;
+  }
   // event handlers
   const createEvent = async (title: string, free_: boolean, date_: Date) => {
     try {
+      const myDate = new Date(date_);
+      const isOlder = isFutureDate(myDate.getDate(),myDate.getMonth()+1,myDate.getFullYear());
+      console.log(isOlder );
+      if (isOlder === false) {
+
+        return Swal.fire({
+          icon: "error",
+          title: "Oops... Not Found!",
+          text: "Pick a date currently",
+        });
+      }
       const email = ref(localStorage.getItem("email"));
 
       const eve = {
@@ -278,8 +316,10 @@ export const useCalenderStore = defineStore("calender", () => {
       console.log(res.data);
 
       Swal.fire("Done!", "Everything done.", "success");
-      dialog_event.value = false;
       await getOneCalenderById(calender.value.id+'');
+      location.reload();
+      dialog_event.value = false;
+      
     } catch (e) {
       console.log(e);
       Swal.fire({
@@ -310,6 +350,6 @@ export const useCalenderStore = defineStore("calender", () => {
     deleteCalender,
     leaveTheGroup,
     createEvent,
-    dialog_event
+    dialog_event,
   };
 });

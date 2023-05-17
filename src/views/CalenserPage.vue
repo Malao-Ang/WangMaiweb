@@ -87,7 +87,7 @@ const attributes = computed(() => [
         </div>
       </div>
       <div class="add">
-        <label class="btn btn-circle btn-dialog" for="my-modal-4">
+        <label class="btn btn-circle btn-dialog" for="my-modal-4" @click="useCalender.dialog_event = true">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"
@@ -106,7 +106,7 @@ const attributes = computed(() => [
       </div>
     </div>
   </body>
-  <CreateEventModal v-model="useCalender.dialog_event"></CreateEventModal>
+  <CreateEventModal v-if="useCalender.dialog_event === true"></CreateEventModal>
 
   <ManagememberModel
     v-if="useCalender.openMangeDialog === true"
