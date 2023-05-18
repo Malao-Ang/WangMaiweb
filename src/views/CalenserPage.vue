@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed,watch } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
 import NavigationBarVue from "@/components/NavigationBarVue.vue";
 import { useCalenderStore } from "@/store/calender.store";
 import { useRoute } from "vue-router";
@@ -11,7 +11,7 @@ import { aW } from "@fullcalendar/core/internal-common";
 const route = useRoute();
 const useCalender = useCalenderStore();
 const id = ref(route.params.id);
-onMounted( () => {
+onMounted(() => {
   useCalender.getOneCalenderById(id.value + "");
 });
 
@@ -29,17 +29,33 @@ const copyText = () => {
 };
 const car = JSON.parse(JSON.stringify(localStorage.getItem("calender")));
 const eve = ref<_Event[]>([...JSON.parse(car)]);
+const count = ref(0);
 const attributes = computed(() => [
   ...eve.value.map((_eve) => ({
     popover: {
-      label: _eve.title ,
+      label: _eve.freeStatus ? "✅" + _eve.title : "❌" + _eve.title,
       visibility: "click",
     },
-    // highlight: {
-    //   color: "green",
-    //   fillMode: "light",
-    // },
-    dot: _eve.freeStatus? 'green':'red',
+    highlight: {
+      color: 
+      // _eve.freeStatus ? "green" : "red"
+        useCalender.calender.members.length+1 ===
+        useCalender.calender.events.reduce((total, member) => {
+          console.log(_eve.start+" "+_eve.freeStatus)
+          if (member.freeStatus &&  _eve.start  === member.start) {
+            
+             total ++;
+          } else {
+             total;
+          }
+          return total
+        }, 0)
+          ? "green"
+          : "red",
+        // ,
+      fillMode: "light",
+    },
+    dot: _eve.freeStatus ? "green" : "red",
     dates: [new Date(_eve.start + "")],
   })),
 ]);
@@ -85,11 +101,15 @@ const attributes = computed(() => [
           </div>
         </div>
         <div class="the-car">
-          <VCalendar  :rows="2" :step="2" expanded :attributes="attributes" />
+          <VCalendar :rows="2" :step="2" expanded :attributes="attributes" />
         </div>
       </div>
       <div class="add">
-        <label class="btn btn-circle btn-dialog" for="my-modal-4" @click="useCalender.dialog_event = true">
+        <label
+          class="btn btn-circle btn-dialog"
+          for="my-modal-4"
+          @click="useCalender.dialog_event = true"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"

@@ -61,7 +61,7 @@ const save = () => {
                       </div>
                       <div class="ml-5">
                         <div class="font-bold">
-                          {{ item.title ? "✅" : "❌" }} {{ item.user?.name }}
+                          {{ item.freeStatus ? "✅" : "❌" }} {{ item.user?.name }}
                         </div>
                       </div>
                     </div>
