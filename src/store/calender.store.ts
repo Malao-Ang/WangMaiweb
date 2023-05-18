@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref ,watch,computed} from "vue";
+import { ref, watch, computed } from "vue";
 import { User } from "./types/User.type";
 import router from "@/router";
 
@@ -77,27 +77,24 @@ export const useCalenderStore = defineStore("calender", () => {
   const free = ref(false);
   const email = ref(localStorage.getItem("email"));
   const formattedDate = computed(() => {
-    if(date.value){
+    if (date.value) {
       const value = date.value;
       const year = value.getFullYear();
-      const month = String(value.getMonth() + 1).padStart(2, '0');
-      const day = String(value.getDate()).padStart(2, '0');
+      const month = String(value.getMonth() + 1).padStart(2, "0");
+      const day = String(value.getDate()).padStart(2, "0");
       return `${year}-${month}-${day}`;
     }
     return "";
-   
   });
   watch(formattedDate, async (newValue, oldValue) => {
-  
     if (newValue) {
       await getEventsByDate();
     }
-
   });
   const getCalender = async () => {
     try {
-      if (userStore.email) {
-        const res = await calenderService.getCalender(userStore.email + "");
+      if (email.value) {
+        const res = await calenderService.getCalender(email.value + "");
         // console.log(JSON.stringify(res.data));
         calenders.value = res.data;
       }
@@ -143,7 +140,10 @@ export const useCalenderStore = defineStore("calender", () => {
 
   const getOneCalenderById = async (id: string) => {
     try {
-      const res = await calenderService.getCalenderById(+id);
+      const body_ = {
+        email: email.value+'',
+      };
+      const res = await calenderService.getCalenderById(+id, body_);
       calender.value = res.data;
       localStorage.setItem("calender", JSON.stringify(calender.value.events));
     } catch (err) {
@@ -152,6 +152,7 @@ export const useCalenderStore = defineStore("calender", () => {
         title: "Oops...",
         text: "Have something wrong! ",
       });
+      router.push('/')
     }
   };
   const goto = async (item: _Calender) => {
@@ -373,8 +374,8 @@ export const useCalenderStore = defineStore("calender", () => {
       dialog_event.value = false;
     }
   };
-  const deleteEvent = async (id:string)=>{
-    try{
+  const deleteEvent = async (id: string) => {
+    try {
       await openDialog(
         `Are you sure`,
         `Are you sure you want to delete this evemt? `,
@@ -386,13 +387,10 @@ export const useCalenderStore = defineStore("calender", () => {
       await getOneCalenderById(calender.value.id + "");
       location.reload();
       dialog_event.value = false;
-
-
-    }catch (e) {
+    } catch (e) {
       console.log(e);
     }
-
-  }
+  };
   return {
     mangeMemberDialog,
     getEventsByCalenderId,
@@ -420,6 +418,6 @@ export const useCalenderStore = defineStore("calender", () => {
     free,
     email,
     formattedDate,
-    deleteEvent
+    deleteEvent,
   };
 });

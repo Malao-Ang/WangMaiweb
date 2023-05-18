@@ -8,8 +8,8 @@ const updateCalender = (id: number, calender: _Calender) => {
   return http.patch(`/calenders/${id}`, calender);
 };
 
-const getCalenderById = (id: number) => {
-  return http.get(`/calenders/${id}`);
+const getCalenderById = (id: number,body:{email:string}) => {
+  return http.post(`/calenders/${id}`,body);
 };
 
 const deleteCalender = (id: number) => {
