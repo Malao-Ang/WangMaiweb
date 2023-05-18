@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed,watch } from "vue";
 import NavigationBarVue from "@/components/NavigationBarVue.vue";
 import { useCalenderStore } from "@/store/calender.store";
 import { useRoute } from "vue-router";
@@ -7,12 +7,14 @@ import _Calender from "@/store/types/Calender.type";
 import { _Event } from "@/store/types/Event.type";
 import ManagememberModel from "@/components/models/ManagememberModel.vue";
 import CreateEventModal from "@/components/models/CreateEventModal.vue";
+import { aW } from "@fullcalendar/core/internal-common";
 const route = useRoute();
 const useCalender = useCalenderStore();
 const id = ref(route.params.id);
-onMounted(() => {
+onMounted( () => {
   useCalender.getOneCalenderById(id.value + "");
 });
+
 const copyText = () => {
   navigator.clipboard
     .writeText(useCalender.calender.code)
@@ -30,7 +32,7 @@ const eve = ref<_Event[]>([...JSON.parse(car)]);
 const attributes = computed(() => [
   ...eve.value.map((_eve) => ({
     popover: {
-      label: _eve.title + ` (${_eve.user?.name})`,
+      label: _eve.title ,
       visibility: "click",
     },
     // highlight: {
@@ -83,7 +85,7 @@ const attributes = computed(() => [
           </div>
         </div>
         <div class="the-car">
-          <VCalendar expanded :attributes="attributes" />
+          <VCalendar  :rows="2" :step="2" expanded :attributes="attributes" />
         </div>
       </div>
       <div class="add">

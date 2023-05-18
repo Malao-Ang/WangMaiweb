@@ -22,4 +22,9 @@ const deleteEvent = (id: number) => {
 const getEventByCalenderId = (id: number) => {
   return http.get(`/events/calender/${id}`);
 };
-export default { createEvent, updateEvent, deleteEvent, getEventByCalenderId };
+
+const getEventsByDate = (id:string,date_:{start:string})=>{
+  return http.post(`/events/date/${id}`,date_);
+
+}
+export default { createEvent, updateEvent, deleteEvent, getEventByCalenderId,getEventsByDate };

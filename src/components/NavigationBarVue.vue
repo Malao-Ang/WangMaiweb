@@ -5,9 +5,6 @@ const userStore = useUserStore();
 </script>
 <template>
   <div>
-  
-    
-
     <nav>
       <div class="navbar bg-base-100">
         <div class="navbar-start">
@@ -54,7 +51,7 @@ const userStore = useUserStore();
           <a class="btn btn-ghost normal-case text-xl">WANGMAI</a>
         </div>
         <div class="navbar-end">
-          <button class="btn btn-ghost btn-circle">
+          <!-- <button class="btn btn-ghost btn-circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-5 w-5"
@@ -69,8 +66,8 @@ const userStore = useUserStore();
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
-          </button>
-          <button class="btn btn-ghost btn-circle">
+          </button> -->
+          <!-- <button class="btn btn-ghost btn-circle">
             <div class="indicator">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -88,13 +85,9 @@ const userStore = useUserStore();
               </svg>
               <span class="badge badge-xs badge-primary indicator-item"></span>
             </div>
-          </button>
+          </button> -->
           <div class="avatar">
-            <div
-              class="w-8 mr-3 ml-3 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
-            >
-            
-           
+            <div class="w-9 mr-3 ml-3 rounded-full ring-primary">
               <img :src="userStore.picture!" />
             </div>
           </div>
