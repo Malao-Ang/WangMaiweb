@@ -9,11 +9,22 @@ import calenderService from "@/services/calender.service";
 import _Calender from "./types/Calender.type";
 import eventService from "@/services/event.service";
 import Swal from "sweetalert2";
-import { aW } from "@fullcalendar/core/internal-common";
 
 export const useCalenderStore = defineStore("calender", () => {
   const openMangeDialog = ref(false);
   const dialog_event = ref(false);
+  const image = ref([
+    require("@/assets/images/1.jpg"),
+    require("@/assets/images/2.jpg"),
+    require("@/assets/images/3.jpg"),
+    require("@/assets/images/4.jpg"),
+    require("@/assets/images/5.jpg"),
+    require("@/assets/images/6.jpg"),
+    require("@/assets/images/7.jpg"),
+    require("@/assets/images/8.jpg"),
+    require("@/assets/images/9.jpg"),
+    require("@/assets/images/10.jpg"),
+  ]);
   const calenders = ref<_Calender[]>([
     {
       id: 0,
@@ -182,11 +193,12 @@ export const useCalenderStore = defineStore("calender", () => {
         name: name,
         email: email,
       };
-      const res = await calenderService.createCalender(calender);
+      await calenderService.createCalender(calender);
 
       Swal.fire("Done!", "Everything done.", "success");
       await getCalender();
     } catch (e) {
+      console.log(e);
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -339,7 +351,6 @@ export const useCalenderStore = defineStore("calender", () => {
   }
   // event handlers
   const createEvent = async (free_: boolean, date_: Date) => {
-
     try {
       const myDate = new Date(date_);
       const isOlder = isFutureDate(
@@ -460,5 +471,6 @@ export const useCalenderStore = defineStore("calender", () => {
     formattedDate,
     deleteEvent,
     loader,
+    image,
   };
 });

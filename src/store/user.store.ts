@@ -52,6 +52,7 @@ export const useUserStore = defineStore("user", () => {
     localStorage.removeItem("name");
     localStorage.removeItem("picture");
     localStorage.removeItem("token");
+    localStorage.removeItem("event");
     router.push("/login");
   };
 

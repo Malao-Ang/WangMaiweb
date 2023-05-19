@@ -131,7 +131,7 @@ const attributes = computed(() => [
 </template>
 <style scoped>
 body {
-  height: 100vh;
+  height: 100%;
   background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
 }
 .calendar {

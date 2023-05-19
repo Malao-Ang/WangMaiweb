@@ -47,4 +47,8 @@ const save = () => {
     </div>
   </div>
 </template>
-<style scoped></style>
+<style scoped>
+.modal-box{
+  overflow: hidden;
+}
+</style>

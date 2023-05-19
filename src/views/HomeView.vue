@@ -29,7 +29,7 @@ onMounted(() => {
               <div class="chat-image avatar">
                 <div class="w-10 rounded-full">
                   <img
-                    src="https://scontent.fbkk2-5.fna.fbcdn.net/v/t39.30808-6/327006796_686653046481563_74172586481304136_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeGEAvjUZgjr4Ldk4_bDMapkG2uM1p0Y8UUba4zWnRjxRdd_nyCjhj_TqXpQpgmaW-RYNMlcF3dmK1ThbCdpxbYG&_nc_ohc=QGvM-bTnDWYAX8CyvKU&_nc_ht=scontent.fbkk2-5.fna&oh=00_AfA2p1M9XWEOhbtHiK4sI5Kam_kcI4MoO_iQ47MH2wHWag&oe=646331A0"
+                    src="@/assets/images/1.jpg"
                   />
                 </div>
               </div>
@@ -39,7 +39,7 @@ onMounted(() => {
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             <label for="my-modal-3">
               <CardVue
-                :date="'2023-05-14'"
+               
                 name="Add Calender"
                 image="https://static.vecteezy.com/system/resources/previews/009/344/473/original/plus-sign-transparent-free-png.png"
               >
@@ -51,7 +51,7 @@ onMounted(() => {
               <CardVue
                 :name="item.name"
                 @click="useCalender.goto(item)"
-                image="https://img.freepik.com/free-vector/hand-drawn-collage-background_23-2149590537.jpg?w=1060&t=st=1684078274~exp=1684078874~hmac=e0c0488f66d61265afc91f05f4ca6f9b0170c9d23e0b65eadbe32c49f4abbd9d"
+                :image="useCalender.image[index%9]"
               >
               </CardVue>
             </div>
@@ -66,6 +66,8 @@ onMounted(() => {
   </div>
 </template>
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Kanit&family=Prompt&display=swap");
+
 .list-card {
   margin-left: 50px;
 }
