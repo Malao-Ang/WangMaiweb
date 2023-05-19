@@ -70,7 +70,7 @@ export const useCalenderStore = defineStore("calender", () => {
     freeStatus: false,
     calender: { ...calender.value },
   });
-
+  const loader = ref(false);
   const userStore = useUserStore();
   const mangeMemberDialog = ref(false);
   const date = ref(new Date());
@@ -93,27 +93,33 @@ export const useCalenderStore = defineStore("calender", () => {
   });
   const getCalender = async () => {
     try {
+      loader.value = true;
       if (email.value) {
         const res = await calenderService.getCalender(email.value + "");
         // console.log(JSON.stringify(res.data));
         calenders.value = res.data;
       }
+      loader.value = false;
     } catch (err) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Have something omething wrong!",
       });
+      loader.value = false;
     }
   };
   const getCalendersJoined = async () => {
     try {
+      loader.value = true;
+
       if (userStore.email) {
         const res = await calenderService.getJoinedCalender(
           userStore.email + ""
         );
         // console.log(JSON.stringify(res.data));
         calendersJoined.value = res.data;
+        loader.value = false;
       }
     } catch (err) {
       Swal.fire({
@@ -121,47 +127,60 @@ export const useCalenderStore = defineStore("calender", () => {
         title: "Oops...",
         text: "Have something wrong! ",
       });
+      loader.value = false;
     }
   };
 
   const getEventsByCalenderId = async (id: string) => {
     try {
+      loader.value = true;
+
       const res = await eventService.getEventByCalenderId(+id);
       events.value = res.data;
       console.log(events.value);
+      loader.value = false;
     } catch (err) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Have something wrong! ",
       });
+      loader.value = false;
     }
   };
 
   const getOneCalenderById = async (id: string) => {
     try {
+      loader.value = true;
+
       const body_ = {
-        email: email.value+'',
+        email: email.value + "",
       };
       const res = await calenderService.getCalenderById(+id, body_);
       calender.value = res.data;
       localStorage.setItem("calender", JSON.stringify(calender.value.events));
+      loader.value = false;
     } catch (err) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Have something wrong! ",
       });
-      router.push('/')
+      loader.value = false;
+
+      router.push("/");
     }
   };
   const goto = async (item: _Calender) => {
     calender.value = item;
     await getOneCalenderById(calender.value.id + "");
+
     router.push(`/calender/${calender.value.id}/${item.code}`);
   };
 
   const createCarlender = async (name: string, email: string) => {
+    loader.value = true;
+
     try {
       const calender = {
         name: name,
@@ -170,17 +189,21 @@ export const useCalenderStore = defineStore("calender", () => {
       const res = await calenderService.createCalender(calender);
       Swal.fire("Done!", "Everything done.", "success");
       await getCalender();
+      loader.value = false;
     } catch (e) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Have something wrong! ",
       });
+      loader.value = false;
     }
   };
 
   const jointCalenderByCode = async (code: string, email: string) => {
     try {
+      loader.value = true;
+
       const members = {
         members: [email],
       };
@@ -189,12 +212,14 @@ export const useCalenderStore = defineStore("calender", () => {
 
       Swal.fire("Done!", "Everything done.", "success");
       await getCalendersJoined();
+      loader.value = false;
     } catch (e) {
       Swal.fire({
         icon: "error",
         title: "Oops... Not Found!",
         text: "Have something wrong! ",
       });
+      loader.value = false;
     }
   };
   const deleteMember = async (email: string) => {
@@ -205,6 +230,7 @@ export const useCalenderStore = defineStore("calender", () => {
         `Yes`,
         `No`
       );
+      loader.value = true;
 
       const members = {
         id: calender.value.id + "",
@@ -215,8 +241,10 @@ export const useCalenderStore = defineStore("calender", () => {
         members
       );
       await getOneCalenderById(calender.value.id + "");
+      loader.value = false;
     } catch (e) {
       console.log(e);
+      loader.value = false;
     }
   };
   const openDialog = (
@@ -251,11 +279,15 @@ export const useCalenderStore = defineStore("calender", () => {
         `Yes`,
         `No`
       );
+      loader.value = true;
 
       const res = await calenderService.deleteCalender(calender.value.id);
+      loader.value = false;
+
       router.push("/");
     } catch (e) {
       console.log(e);
+      loader.value = false;
     }
   };
   const leaveTheGroup = async (email: string) => {
@@ -266,6 +298,7 @@ export const useCalenderStore = defineStore("calender", () => {
         `Yes`,
         `No`
       );
+      loader.value = true;
 
       const members = {
         id: calender.value.id + "",
@@ -275,9 +308,12 @@ export const useCalenderStore = defineStore("calender", () => {
         calender.value.id,
         members
       );
+      loader.value = false;
+
       router.push("/");
     } catch (e) {
       console.log(e);
+      loader.value = false;
     }
   };
   function isFutureDate(day: number, month: number, year: number): boolean {
@@ -291,13 +327,13 @@ export const useCalenderStore = defineStore("calender", () => {
       return false;
     } else if (year === currentYear) {
       if (month < currentMonth) {
-        console.log("not month " + month);
+        // console.log("not month " + month);
 
         return false;
       } else if (month === currentMonth) {
-        console.log("currnt mounth " + month);
+        // console.log("currnt mounth " + month);
         if (day <= currentDay) {
-          console.log("currnt day " + day);
+          // console.log("currnt day " + day);
 
           return false;
         }
@@ -309,6 +345,8 @@ export const useCalenderStore = defineStore("calender", () => {
   // event handlers
   const createEvent = async (free_: boolean, date_: Date) => {
     try {
+      loader.value = true;
+
       const myDate = new Date(date_);
       const isOlder = isFutureDate(
         myDate.getDate(),
@@ -341,6 +379,8 @@ export const useCalenderStore = defineStore("calender", () => {
 
       Swal.fire("Done!", "Everything done.", "success");
       await getOneCalenderById(calender.value.id + "");
+      loader.value = false;
+
       location.reload();
       dialog_event.value = false;
     } catch (e) {
@@ -355,6 +395,8 @@ export const useCalenderStore = defineStore("calender", () => {
   };
   const getEventsByDate = async () => {
     try {
+      loader.value = true;
+
       const start = {
         start: formattedDate.value,
       };
@@ -363,6 +405,8 @@ export const useCalenderStore = defineStore("calender", () => {
         start
       );
       events.value = res.data;
+      loader.value = false;
+
       // console.log(res.data);
     } catch (e) {
       console.log(e);
@@ -382,13 +426,17 @@ export const useCalenderStore = defineStore("calender", () => {
         `Yes`,
         `No`
       );
+      loader.value = true;
+
       const res = await eventService.deleteEvent(+id);
       Swal.fire("Done!", "Everything done.", "success");
       await getOneCalenderById(calender.value.id + "");
+      loader.value = false;
       location.reload();
       dialog_event.value = false;
     } catch (e) {
       console.log(e);
+      loader.value = false;
     }
   };
   return {
@@ -419,5 +467,6 @@ export const useCalenderStore = defineStore("calender", () => {
     email,
     formattedDate,
     deleteEvent,
+    loader,
   };
 });

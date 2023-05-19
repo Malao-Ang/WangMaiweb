@@ -8,6 +8,7 @@ import { useCalenderStore } from "@/store/calender.store";
 import _Calender from "@/store/types/Calender.type";
 import CreateCalenderModel from "@/components/models/CreateCalenderModel.vue";
 import JoinGroupModal from "@/components/models/JoinGroupModal.vue";
+import LoadindModal from "@/components/models/LoadindModal.vue";
 const useuserStore = useUserStore();
 const useCalender = useCalenderStore();
 
@@ -58,9 +59,10 @@ onMounted(() => {
         </div>
       </div>
     </body>
+    <LoadindModal v-if="useCalender.loader"></LoadindModal>
+
     <JoinGroupModal></JoinGroupModal>
     <CreateCalenderModel></CreateCalenderModel>
-   
   </div>
 </template>
 <style scoped>

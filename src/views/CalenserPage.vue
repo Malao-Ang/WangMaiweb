@@ -8,6 +8,7 @@ import { _Event } from "@/store/types/Event.type";
 import ManagememberModel from "@/components/models/ManagememberModel.vue";
 import CreateEventModal from "@/components/models/CreateEventModal.vue";
 import { aW } from "@fullcalendar/core/internal-common";
+import LoadindModal from "@/components/models/LoadindModal.vue";
 const route = useRoute();
 const useCalender = useCalenderStore();
 const id = ref(route.params.id);
@@ -37,22 +38,13 @@ const attributes = computed(() => [
       visibility: "click",
     },
     highlight: {
-      color: 
-      // _eve.freeStatus ? "green" : "red"
-        useCalender.calender.members.length+1 ===
-        useCalender.calender.events.reduce((total, member) => {
-          console.log(_eve.start+" "+_eve.freeStatus)
-          if (member.freeStatus &&  _eve.start  === member.start) {
-            
-             total ++;
-          } else {
-             total;
-          }
-          return total
-        }, 0)
+      color:
+        // _eve.freeStatus ? "green" : "red"
+
+        useCalender.calender.events.filter(eve__=> eve__.start === _eve.start).every((eve__) => eve__.freeStatus === true )
           ? "green"
           : "red",
-        // ,
+      // ,
       fillMode: "light",
     },
     dot: _eve.freeStatus ? "green" : "red",
@@ -133,6 +125,7 @@ const attributes = computed(() => [
   <ManagememberModel
     v-if="useCalender.openMangeDialog === true"
   ></ManagememberModel>
+  <LoadindModal v-if="useCalender.loader"></LoadindModal>
 </template>
 <style scoped>
 body {
