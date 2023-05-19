@@ -7,28 +7,8 @@ const userStore = useUserStore();
 <template>
   <div>
     <div class="login">
-      <div class="card w-96 glass box-login">
-        <h1 class="text-xl font-semibold">Login</h1>
-        <div class="form-control w-full max-w-xs">
-          <label class="label">
-            <span class="label-text">Email</span>
-          </label>
-          <input
-            type="email"
-            placeholder="email2gmail.com"
-            class="input input-bordered input-info w-full max-w-xs"
-          />
-          <label class="label">
-            <span class="label-text">Password</span>
-          </label>
-          <input
-            type="password"
-            placeholder="password"
-            class="input input-bordered input-info w-full max-w-xs"
-          />
-          <button class="btn gap-2 btn-outline btn-wid mt-3">Submit</button>
-        </div>
-        <div class="divider">OR</div>
+      <div class="card w-96 glass ">
+        
         <button class="btn gap-2 btn-outline btn-primary btn-wid" @click="userStore.login">
           <img
             src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
