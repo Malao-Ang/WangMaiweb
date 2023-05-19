@@ -92,34 +92,32 @@ export const useCalenderStore = defineStore("calender", () => {
     }
   });
   const getCalender = async () => {
+    loader.value = true;
     try {
-      loader.value = true;
       if (email.value) {
         const res = await calenderService.getCalender(email.value + "");
         // console.log(JSON.stringify(res.data));
         calenders.value = res.data;
       }
-      loader.value = false;
     } catch (err) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Have something omething wrong!",
       });
-      loader.value = false;
     }
+    loader.value = false;
   };
   const getCalendersJoined = async () => {
-    try {
-      loader.value = true;
+    loader.value = true;
 
+    try {
       if (userStore.email) {
         const res = await calenderService.getJoinedCalender(
           userStore.email + ""
         );
         // console.log(JSON.stringify(res.data));
         calendersJoined.value = res.data;
-        loader.value = false;
       }
     } catch (err) {
       Swal.fire({
@@ -127,49 +125,47 @@ export const useCalenderStore = defineStore("calender", () => {
         title: "Oops...",
         text: "Have something wrong! ",
       });
-      loader.value = false;
     }
+    loader.value = false;
   };
 
   const getEventsByCalenderId = async (id: string) => {
-    try {
-      loader.value = true;
+    loader.value = true;
 
+    try {
       const res = await eventService.getEventByCalenderId(+id);
       events.value = res.data;
       console.log(events.value);
-      loader.value = false;
     } catch (err) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Have something wrong! ",
       });
-      loader.value = false;
     }
+    loader.value = false;
   };
 
   const getOneCalenderById = async (id: string) => {
-    try {
-      loader.value = true;
+    loader.value = true;
 
+    try {
       const body_ = {
         email: email.value + "",
       };
       const res = await calenderService.getCalenderById(+id, body_);
       calender.value = res.data;
       localStorage.setItem("calender", JSON.stringify(calender.value.events));
-      loader.value = false;
     } catch (err) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Have something wrong! ",
       });
-      loader.value = false;
 
       router.push("/");
     }
+    loader.value = false;
   };
   const goto = async (item: _Calender) => {
     calender.value = item;
@@ -187,23 +183,23 @@ export const useCalenderStore = defineStore("calender", () => {
         email: email,
       };
       const res = await calenderService.createCalender(calender);
+
       Swal.fire("Done!", "Everything done.", "success");
       await getCalender();
-      loader.value = false;
     } catch (e) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Have something wrong! ",
       });
-      loader.value = false;
     }
+    loader.value = false;
   };
 
   const jointCalenderByCode = async (code: string, email: string) => {
-    try {
-      loader.value = true;
+    loader.value = true;
 
+    try {
       const members = {
         members: [email],
       };
@@ -212,17 +208,18 @@ export const useCalenderStore = defineStore("calender", () => {
 
       Swal.fire("Done!", "Everything done.", "success");
       await getCalendersJoined();
-      loader.value = false;
     } catch (e) {
       Swal.fire({
         icon: "error",
         title: "Oops... Not Found!",
         text: "Have something wrong! ",
       });
-      loader.value = false;
     }
+    loader.value = false;
   };
   const deleteMember = async (email: string) => {
+    loader.value = true;
+
     try {
       await openDialog(
         `Are you sure`,
@@ -230,7 +227,6 @@ export const useCalenderStore = defineStore("calender", () => {
         `Yes`,
         `No`
       );
-      loader.value = true;
 
       const members = {
         id: calender.value.id + "",
@@ -241,11 +237,10 @@ export const useCalenderStore = defineStore("calender", () => {
         members
       );
       await getOneCalenderById(calender.value.id + "");
-      loader.value = false;
     } catch (e) {
       console.log(e);
-      loader.value = false;
     }
+    loader.value = false;
   };
   const openDialog = (
     title: string,
@@ -272,6 +267,8 @@ export const useCalenderStore = defineStore("calender", () => {
   };
 
   const deleteCalender = async () => {
+    loader.value = true;
+
     try {
       await openDialog(
         `Are you sure`,
@@ -279,18 +276,18 @@ export const useCalenderStore = defineStore("calender", () => {
         `Yes`,
         `No`
       );
-      loader.value = true;
 
       const res = await calenderService.deleteCalender(calender.value.id);
-      loader.value = false;
 
       router.push("/");
     } catch (e) {
       console.log(e);
-      loader.value = false;
     }
+    loader.value = false;
   };
   const leaveTheGroup = async (email: string) => {
+    loader.value = true;
+
     try {
       await openDialog(
         `Are you sure`,
@@ -298,7 +295,6 @@ export const useCalenderStore = defineStore("calender", () => {
         `Yes`,
         `No`
       );
-      loader.value = true;
 
       const members = {
         id: calender.value.id + "",
@@ -308,13 +304,12 @@ export const useCalenderStore = defineStore("calender", () => {
         calender.value.id,
         members
       );
-      loader.value = false;
 
       router.push("/");
     } catch (e) {
       console.log(e);
-      loader.value = false;
     }
+    loader.value = false;
   };
   function isFutureDate(day: number, month: number, year: number): boolean {
     const currentDate: Date = new Date();
@@ -344,9 +339,8 @@ export const useCalenderStore = defineStore("calender", () => {
   }
   // event handlers
   const createEvent = async (free_: boolean, date_: Date) => {
-    try {
-      loader.value = true;
 
+    try {
       const myDate = new Date(date_);
       const isOlder = isFutureDate(
         myDate.getDate(),
@@ -379,24 +373,22 @@ export const useCalenderStore = defineStore("calender", () => {
 
       Swal.fire("Done!", "Everything done.", "success");
       await getOneCalenderById(calender.value.id + "");
-      loader.value = false;
-
-      location.reload();
       dialog_event.value = false;
+      location.reload();
     } catch (e) {
       console.log(e);
+      dialog_event.value = false;
+
       Swal.fire({
         icon: "error",
         title: "Oops... Not Found!",
         text: "You are create already ",
       });
-      dialog_event.value = false;
     }
+    loader.value = false;
   };
   const getEventsByDate = async () => {
     try {
-      loader.value = true;
-
       const start = {
         start: formattedDate.value,
       };
@@ -405,7 +397,6 @@ export const useCalenderStore = defineStore("calender", () => {
         start
       );
       events.value = res.data;
-      loader.value = false;
 
       // console.log(res.data);
     } catch (e) {
@@ -419,6 +410,8 @@ export const useCalenderStore = defineStore("calender", () => {
     }
   };
   const deleteEvent = async (id: string) => {
+    loader.value = true;
+
     try {
       await openDialog(
         `Are you sure`,
@@ -426,18 +419,17 @@ export const useCalenderStore = defineStore("calender", () => {
         `Yes`,
         `No`
       );
-      loader.value = true;
 
       const res = await eventService.deleteEvent(+id);
       Swal.fire("Done!", "Everything done.", "success");
       await getOneCalenderById(calender.value.id + "");
-      loader.value = false;
+
       location.reload();
       dialog_event.value = false;
     } catch (e) {
       console.log(e);
-      loader.value = false;
     }
+    loader.value = false;
   };
   return {
     mangeMemberDialog,

@@ -41,7 +41,9 @@ const attributes = computed(() => [
       color:
         // _eve.freeStatus ? "green" : "red"
 
-        useCalender.calender.events.filter(eve__=> eve__.start === _eve.start).every((eve__) => eve__.freeStatus === true )
+        useCalender.calender.events
+          .filter((eve__) => eve__.start === _eve.start)
+          .every((eve__) => eve__.freeStatus === true)
           ? "green"
           : "red",
       // ,
