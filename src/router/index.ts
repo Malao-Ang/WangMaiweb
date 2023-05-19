@@ -34,7 +34,7 @@ const routes: Array<RouteRecordRaw> = [
       requiresAuth: true,
     },
   },
-  
+
   {
     path: "/homepage",
     name: "homepage",
@@ -43,7 +43,6 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/HeroPage.vue"),
-   
   },
   {
     path: "/login",
@@ -53,6 +52,11 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/LoginVue.vue"),
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "not-found",
+    component: () => import("../views/PageNotFound.vue"),
   },
 ];
 
