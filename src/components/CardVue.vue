@@ -16,7 +16,7 @@ const props = defineProps<{
         />
       </figure>
       <div class="card-body" style="height: 25%; padding-top: 20px;">
-        <p class="card-title Kanit" style="font-weight: 500;">{{ props.name }}</p>
+        <p class=" Kanit " style="font-weight: 500;">{{ props.name }}</p>
       
       </div>
     </div>

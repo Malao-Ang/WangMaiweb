@@ -230,7 +230,6 @@ export const useCalenderStore = defineStore("calender", () => {
     loader.value = false;
   };
   const deleteMember = async (email: string) => {
-    loader.value = true;
 
     try {
       await openDialog(
@@ -252,7 +251,6 @@ export const useCalenderStore = defineStore("calender", () => {
     } catch (e) {
       console.log(e);
     }
-    loader.value = false;
   };
   const openDialog = (
     title: string,
@@ -279,7 +277,6 @@ export const useCalenderStore = defineStore("calender", () => {
   };
 
   const deleteCalender = async () => {
-    loader.value = true;
 
     try {
       await openDialog(
@@ -298,7 +295,6 @@ export const useCalenderStore = defineStore("calender", () => {
     loader.value = false;
   };
   const leaveTheGroup = async (email: string) => {
-    loader.value = true;
 
     try {
       await openDialog(
@@ -421,7 +417,6 @@ export const useCalenderStore = defineStore("calender", () => {
     }
   };
   const deleteEvent = async (id: string) => {
-    loader.value = true;
 
     try {
       await openDialog(

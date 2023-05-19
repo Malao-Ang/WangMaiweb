@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useCalenderStore } from "@/store/calender.store";
 import { useUserStore } from "@/store/user.store";
+import Swal from "sweetalert2";
 import { ref } from "vue";
 const useCalender = useCalenderStore();
 const name = ref("");
@@ -8,9 +9,18 @@ const email = ref(localStorage.getItem("email"));
 
 const save = () => {
   if (name.value && email.value) {
-    useCalender.createCarlender(name.value, email.value);
+    if(name.value.length < 30){
+      useCalender.createCarlender(name.value, email.value);
 
-    console.log("save!!!");
+    }else{
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please input character less than 30 characters",
+      });
+    }
+
+    // console.log("save!!!");
   }
 };
 </script>
