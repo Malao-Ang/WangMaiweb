@@ -16,7 +16,7 @@ export const useUserStore = defineStore("user", () => {
         "https://accounts.google.com/o/oauth2/v2/auth" +
         "?response_type=code" +
         "&client_id=593588518556-laoh0qf29n6kr4ag2835t62ruspm6mom.apps.googleusercontent.com" +
-        "&redirect_uri=http://localhost:3000/api/auth/google/redirect" +
+        "&redirect_uri=https://rufreebackweb-production.up.railway.app/api/auth/google/redirect" +
         "&scope=email%20profile";
 
       window.location.href = authUrl;
