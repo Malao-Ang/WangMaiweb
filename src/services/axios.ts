@@ -3,7 +3,7 @@ import axios from "axios";
 // import router from "@/router";
 
 const instance = axios.create({
-  baseURL: process.env.PORT 
+  baseURL: 'https://rufreebackweb-production.up.railway.app/api' 
 });
 
 function delay(time: number) {
