@@ -34,7 +34,7 @@ const userStore = useUserStore();
               </li>
              
               <li>
-                <a><router-link to="/about">About</router-link></a>
+                <a><router-link to="/about">Tutorial</router-link></a>
               </li>
               <li v-if="userStore.name === null">
                 <a><router-link to="/login">Login</router-link></a>
@@ -46,7 +46,7 @@ const userStore = useUserStore();
           </div>
         </div>
         <div class="navbar-center">
-          <a class="btn btn-ghost normal-case text-xl">WANGMAI</a>
+          <a class="btn btn-ghost normal-case text-xl">WANGPAA</a>
         </div>
         <div class="navbar-end">
           <!-- <button class="btn btn-ghost btn-circle">
