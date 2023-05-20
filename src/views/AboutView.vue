@@ -45,7 +45,7 @@ import NavigationBarVue from "@/components/NavigationBarVue.vue";
             <li class="step step-primary">สร้างปฏิทิน</li>
             <li class="step step-primary">เพิ่มการนัด</li>
             <li class="step step-primary">การแก้ไขกำหนดการ</li>
-            <li class="step">Receive Product</li>
+            <li class="step">การลบกำหนดการ</li>
           </ul>
           <h2 class="text-bold text-2xl mt-2 mb-2">การแก้ไขกำหนดการ</h2>
           <p>1. คลิกเข้าไปในปฏิทินที่ต้องการ จากนั้นกดที่เครื่องหมายบวก(+)</p>

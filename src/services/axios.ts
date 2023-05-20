@@ -3,7 +3,7 @@ import axios from "axios";
 // import router from "@/router";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: process.env.PORT || "http://localhost:3000/api",
 });
 
 function delay(time: number) {
