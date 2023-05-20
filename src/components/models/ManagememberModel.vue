@@ -20,29 +20,7 @@ const useCalender = useCalenderStore();
           <h3 class="font-bold text-lg">All Member mai kaa</h3>
           <p class="py-4">คุณสามารถเพิ่มหรือลบสมาชิกได้ที่นี่เลย</p>
           <p class="font-bold py-4">members</p>
-          <div class="for-s flex justify-between mb-3">
-            <input
-              type="text"
-              placeholder="Type here"
-              class="input input-bordered w-full max-w-xs"
-            />
-            <button class="btn btn-ghost btn-circle ml-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </button>
-          </div>
+         
 
           <div class="members">
             <div
