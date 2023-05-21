@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 import { useCalenderStore } from "@/store/calender.store";
-import { aW } from "@fullcalendar/core/internal-common";
 import Swal from "sweetalert2";
 const useCalender = useCalenderStore();
 const save = () => {
   if (useCalender.date) {
-    useCalender.createEvent(useCalender.free, useCalender.date);
+    useCalender.createEvent(useCalender.free, useCalender.range.start, useCalender.range.end);
   } else {
     Swal.fire({
       icon: "error",
@@ -29,7 +28,7 @@ const save = () => {
         <h3 class="text-lg font-bold">Event</h3>
         <p class="py-4">สร้างกำหนัดการไว้นัดหมายกับเพื่อนคุณได้เลย</p>
         <div>
-          <VDatePicker expanded v-model="useCalender.date" mode="date" />
+          <VDatePicker expanded v-model.range="useCalender.range"   mode="date" />
         </div>
         <div
           tabindex="0"

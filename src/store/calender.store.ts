@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { ref, watch, computed } from "vue";
-import { User } from "./types/User.type";
 import router from "@/router";
 
 import { _Event } from "./types/Event.type";
@@ -41,6 +40,10 @@ export const useCalenderStore = defineStore("calender", () => {
     },
   ]);
   const showErrText = ref(false);
+  const range = ref({
+    start: new Date(),
+    end: new Date()
+  });
   const calendersJoined = ref<_Calender[]>([
     {
       id: 0,
@@ -346,9 +349,13 @@ export const useCalenderStore = defineStore("calender", () => {
     return true;
   }
   // event handlers
-  const createEvent = async (free_: boolean, date_: Date) => {
+  const createEvent = async (
+    free_: boolean,
+    date_start: Date,
+    date_end: Date
+  ) => {
     try {
-      const myDate = new Date(date_);
+      const myDate = new Date(date_start);
       const isOlder = isFutureDate(
         myDate.getDate(),
         myDate.getMonth() + 1,
@@ -364,19 +371,32 @@ export const useCalenderStore = defineStore("calender", () => {
       }
       const email = ref(localStorage.getItem("email"));
       const name = ref(localStorage.getItem("name"));
+      for (
+        let date = date_start;
+        date <= date_end;
+        date.setDate(date.getDate() + 1)
+      ) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
 
-      const eve = {
-        title: name.value + "",
-        start: new Date(date_),
-        display: "list-item",
-        color: "#74ebd5",
-        email: email.value + "",
-        freeStatus: free_,
-        idCalender: calender.value.id,
-      };
-      console.log(eve);
-      const res = await eventService.createEvent(eve);
-      console.log(res.data);
+        const formattedDate = `${year}-${month}-${day}`;
+
+        // Do something with the formatted date
+        // console.log(formattedDate);
+        const eve = {
+          title: name.value + "",
+          start: new Date(formattedDate),
+          display: "list-item",
+          color: "#74ebd5",
+          email: email.value + "",
+          freeStatus: free_,
+          idCalender: calender.value.id,
+        };
+        console.log(eve);
+        const res = await eventService.createEvent(eve);
+        console.log(res.data);
+      }
 
       Swal.fire("Done!", "Everything done.", "success");
       await getOneCalenderById(calender.value.id + "");
@@ -467,5 +487,6 @@ export const useCalenderStore = defineStore("calender", () => {
     deleteEvent,
     loader,
     image,
+    range
   };
 });

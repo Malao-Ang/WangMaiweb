@@ -96,7 +96,7 @@ import NavigationBarVue from "@/components/NavigationBarVue.vue";
           How to Delete or Leave Group
         </h1>
 
-        <div class="card">
+        <div class="card ">
           <h2>วิธีการลบหรืออกจากกลุ่ม</h2>
           <p>1. คลิกที่ ปุ่มฟันเฟือง</p>
           <p>
@@ -114,6 +114,7 @@ import NavigationBarVue from "@/components/NavigationBarVue.vue";
 
           <img class="img-tur" src="@/assets/step/8.png " />
           <img class="img-tur" src="@/assets/step/9.png " />
+          <p class="mt-5">Contact us (email): kai84143@gmail.com</p>
         </div>
       </div>
     </div>
