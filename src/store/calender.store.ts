@@ -226,7 +226,7 @@ export const useCalenderStore = defineStore("calender", () => {
     } catch (e) {
       Swal.fire({
         icon: "error",
-        title: "Oops... Not Found!",
+        title: "Oops... Sorry!",
         text: "Have something wrong! ",
       });
     }
@@ -365,7 +365,7 @@ export const useCalenderStore = defineStore("calender", () => {
       if (isOlder === false) {
         return Swal.fire({
           icon: "error",
-          title: "Oops... Not Found!",
+          title: "Oops... Sorry!",
           text: "Pick a date currently",
         });
       }
@@ -408,7 +408,7 @@ export const useCalenderStore = defineStore("calender", () => {
 
       Swal.fire({
         icon: "error",
-        title: "Oops... Not Found!",
+        title: "Oops... Sorry!",
         text: "You are create already ",
       });
     }
@@ -430,7 +430,7 @@ export const useCalenderStore = defineStore("calender", () => {
       console.log(e);
       Swal.fire({
         icon: "error",
-        title: "Oops... Not Found!",
+        title: "Oops... Sorry!",
         text: "Can not delete event please try again.",
       });
       dialog_event.value = false;
@@ -441,7 +441,7 @@ export const useCalenderStore = defineStore("calender", () => {
     try {
       await openDialog(
         `Are you sure`,
-        `Are you sure you want to delete this evemt? `,
+        `Are you sure you want to delete this event? `,
         `Yes`,
         `No`
       );
