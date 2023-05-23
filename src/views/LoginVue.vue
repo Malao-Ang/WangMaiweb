@@ -13,10 +13,10 @@ const userStore = useUserStore();
         :src="require(`@/assets/images/37.jpg`)"
         class="img-hero rounded-lg shadow-2xl"
       />
-            <h1 class="text-5xl font-bold">Login To WANGMAI</h1>
+            <h1 class="text-5xl font-bold">Login To WANGPA</h1>
             
             <p class="py-6">
-           Welcome to WANGMAI(ว่างมั้ย).
+           Welcome to WANGPa(ว่างป้ะ).
             </p>
           </div>
           <div
